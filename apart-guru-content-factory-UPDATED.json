@@ -1,0 +1,387 @@
+{
+  "name": "Apart Guru — Контент-завод (Threads с вопросами)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9,13,18 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "⏰ Расписание",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-200, 300]
+    },
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "▶️ Тест",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-200, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const types = [\n  {\n    type: 'news',\n    prompt: 'Ты — эксперт-аналитик канала Apart Guru (apart.guru). Пишешь посты для соцсетей про инвестиции в апарт-отели в России.\\n\\nСТИЛЬ:\\n- Заголовок с эмодзи ⚡ или 🔥, цепляющий, как новостной\\n- Суть новости / события — 2-3 абзаца с фактами\\n- Твоё экспертное мнение: как это скажется на рынок апартаментов (ВСЕГДА в позитивном ключе для апартов)\\n- Живой язык, можно с перчинкой, не канцелярит\\n- Можно добавить PS / PPS с дополнительной мыслью\\n\\nТЕМУ ВЫБЕРИ ОДНУ (придумай актуальную новость или тренд):\\n- Законодательные изменения, затрагивающие апартаменты\\n- Рост турпотока в российские города\\n- Банки ужесточают ипотеку на квартиры\\n- Рост цен на классическое жильё\\n- Тренд на удалёнку и краткосрочную аренду\\n\\nВАЖНО: апартаменты всегда подаём в позитивном свете.\\n\\nФормат: 800–1500 символов.\\n\\nВ КОНЦЕ ОБЯЗАТЕЛЬНО добавь:\\n🔗 https://www.apart.guru\\nПомощь с подбором, расчётом доходности и разбором объектов — 👉 @apartgurusupp'\n  },\n  {\n    type: 'comparison',\n    prompt: 'Ты — эксперт-аналитик канала Apart Guru (apart.guru).\\n\\nСТИЛЬ:\\n- Заголовок-противостояние с эмодзи: \"🥊 Апарты vs ...\"\\n- Честное сравнение с цифрами, вывод в пользу апартаментов\\n- Живой язык, можно провокационно\\n\\nТЕМУ ВЫБЕРИ ОДНУ:\\n- Апартаменты vs акции\\n- Апартаменты vs облигации\\n- Апартаменты vs квартиры под сдачу\\n- Апартаменты vs франшизы\\n- Апартаменты vs вклады\\n- Апартаменты vs крипта\\n\\nДАННЫЕ: доходность апартов 14-20% годовых, NOI 1.16М₽/год, средняя цена 8М₽, вход от 4.45М₽.\\n\\nФормат: 800–1200 символов.\\n\\nВ КОНЦЕ ОБЯЗАТЕЛЬНО добавь:\\n🔗 https://www.apart.guru\\nПомощь с подбором, расчётом доходности и разбором объектов — 👉 @apartgurusupp'\n  },\n  {\n    type: 'object_review',\n    prompt: 'Ты — эксперт-аналитик канала Apart Guru (apart.guru).\\n\\nСТИЛЬ:\\n- Заголовок с эмодзи 🏨 или 🔍 — название объекта и город\\n- Ключевые цифры: ADR, загрузка, доходность, окупаемость\\n- Что привлекает инвесторов\\n- Твоё мнение: кому подойдёт\\n\\nВЫБЕРИ ОДИН ОБЪЕКТ:\\n- Yard Residence, Москва\\n- ARTSTUDIO, Санкт-Петербург\\n- Горки Город 540м, Сочи\\n- LIKE, Новосибирск\\n- Отель на Фонтанке, СПб\\n- VALO, СПб\\n- Yes Apart, Москва\\n\\nПозитивный ключ, с цифрами. 800–1200 символов.\\n\\nВ КОНЦЕ ОБЯЗАТЕЛЬНО добавь:\\n🔗 https://www.apart.guru\\nПомощь с подбором, расчётом доходности и разбором объектов — 👉 @apartgurusupp'\n  },\n  {\n    type: 'investor_education',\n    prompt: 'Ты — эксперт-аналитик канала Apart Guru (apart.guru).\\n\\nСТИЛЬ:\\n- Заголовок с эмодзи 💡 или 📊\\n- Конкретный совет с цифрами\\n- Подача: \"большинство делает ТАК, а умные инвесторы делают ВОТ ТАК\"\\n\\nТЕМУ ВЫБЕРИ ОДНУ:\\n- Почему НЕ надо смотреть на обещанную доходность застройщика\\n- Как отличить хорошую УК от плохой\\n- Почему загрузка 85% важнее ADR 10000₽\\n- Что такое NOI и почему это единственная честная метрика\\n- Как считать реальную окупаемость\\n- Почему апарты — это НЕ квартира (и почему это хорошо)\\n- 3 ошибки начинающего инвестора\\n\\nДанные: доходность 14-20%, NOI 1.16М₽/год, 54 проекта в базе.\\n\\n600–1000 символов.\\n\\nВ КОНЦЕ ОБЯЗАТЕЛЬНО добавь:\\n🔗 https://www.apart.guru\\nПомощь с подбором, расчётом доходности и разбором объектов — 👉 @apartgurusupp'\n  }\n];\n\nconst pick = types[Math.floor(Math.random() * types.length)];\nreturn [{ json: pick }];"
+      },
+      "id": "pick-topic",
+      "name": "🎲 Рубрика",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [40, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "YOUR_ANTHROPIC_API_KEY" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.prompt) }}\n    }\n  ]\n}",
+        "options": { "timeout": 30000 }
+      },
+      "id": "claude-post",
+      "name": "🤖 Claude (текст)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [280, 200]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "post-text",
+              "name": "postText",
+              "value": "={{ $json.content[0].text }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "save-post",
+      "name": "📝 Сохранить текст",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [520, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "YOUR_ANTHROPIC_API_KEY" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-haiku-4-5-20251001\",\n  \"max_tokens\": 300,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generate a DALL-E 3 prompt in English for an image to accompany this social media post about real estate investment. Requirements: professional real estate photography or stylish infographic style, about apart-hotels and investment in Russia, NO text/letters/numbers/words on the image, 4k quality, premium look. Reply ONLY with the prompt, nothing else.\\n\\nPost text:\\n\" + {{ JSON.stringify($json.postText) }}\n    }\n  ]\n}",
+        "options": { "timeout": 15000 }
+      },
+      "id": "claude-img",
+      "name": "🤖 Claude (промпт картинки)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [760, 200]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "keep-text",
+              "name": "postText",
+              "value": "={{ $('📝 Сохранить текст').item.json.postText }}",
+              "type": "string"
+            },
+            {
+              "id": "img-prompt",
+              "name": "imagePrompt",
+              "value": "={{ $json.content[0].text }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "combine",
+      "name": "📝 Текст + промпт",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1000, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer YOUR_OPENAI_API_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"dall-e-3\",\n  \"prompt\": {{ JSON.stringify($json.imagePrompt) }},\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"quality\": \"standard\"\n}",
+        "options": { "timeout": 60000 }
+      },
+      "id": "dalle",
+      "name": "🎨 DALL-E",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1240, 200]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "final-text",
+              "name": "postText",
+              "value": "={{ $('📝 Текст + промпт').item.json.postText }}",
+              "type": "string"
+            },
+            {
+              "id": "final-image",
+              "name": "imageUrl",
+              "value": "={{ $json.data[0].url }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "final",
+      "name": "📦 Финал",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1480, 200]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "YOUR_TELEGRAM_CHANNEL_ID",
+        "file": "={{ $json.imageUrl }}",
+        "caption": "={{ $json.postText }}",
+        "additionalFields": {}
+      },
+      "id": "telegram",
+      "name": "📨 Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1780, 0],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Apart Guru Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.vk.com/method/wall.post",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "owner_id", "value": "-YOUR_VK_GROUP_ID" },
+            { "name": "from_group", "value": "1" },
+            { "name": "message", "value": "={{ $json.postText }}" },
+            { "name": "access_token", "value": "YOUR_VK_COMMUNITY_TOKEN" },
+            { "name": "v", "value": "5.199" }
+          ]
+        },
+        "options": { "timeout": 10000 }
+      },
+      "id": "vk",
+      "name": "💬 ВКонтакте (текст)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 160]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/YOUR_IG_ACCOUNT_ID/media",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "image_url", "value": "={{ $json.imageUrl }}" },
+            { "name": "caption", "value": "={{ $json.postText }}" },
+            { "name": "access_token", "value": "YOUR_META_ACCESS_TOKEN" }
+          ]
+        },
+        "options": { "timeout": 30000 }
+      },
+      "id": "ig-container",
+      "name": "📸 IG контейнер",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 320]
+    },
+    {
+      "parameters": {
+        "amount": 30,
+        "unit": "seconds"
+      },
+      "id": "ig-wait",
+      "name": "⏳ 30 сек",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2020, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/YOUR_IG_ACCOUNT_ID/media_publish",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "creation_id", "value": "={{ $json.id }}" },
+            { "name": "access_token", "value": "YOUR_META_ACCESS_TOKEN" }
+          ]
+        },
+        "options": { "timeout": 15000 }
+      },
+      "id": "ig-publish",
+      "name": "📸 IG публикация",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2260, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// НОВАЯ ЛОГИКА ДЛЯ THREADS С ПРОВОКАЦИОННЫМ ВОПРОСОМ\nconst fullText = $input.first().json.postText;\n\n// Убираем ссылки и служебную инфу\nlet cleanText = fullText.replace(/🔗 https:\\/\\/www\\.apart\\.guru[\\s\\S]*$/g, '').trim();\ncleanText = cleanText.replace(/https?:\\/\\/[^\\s]+/g, '').trim();\n\n// Провокационные вопросы для обсуждения\nconst questions = [\n  '\\n\\nА вы бы рискнули вложиться?',\n  '\\n\\nКак вы думаете, это реально работает?',\n  '\\n\\nЧто думаете про такие инвестиции?',\n  '\\n\\nКто уже пробовал — делитесь опытом?',\n  '\\n\\nСогласны с таким подходом или есть возражения?',\n  '\\n\\nА что если я скажу, что это лучше вкладов?',\n  '\\n\\nКто-нибудь считал реальную доходность?',\n  '\\n\\nКакие риски видите в этой схеме?',\n  '\\n\\nСтоит ли вообще связываться с недвижимостью?',\n  '\\n\\nКакой процент доходности считаете нормой?'\n];\n\nconst question = questions[Math.floor(Math.random() * questions.length)];\n\n// Обрезаем до 450 символов (оставляем место для вопроса)\nif (cleanText.length > 450) {\n  cleanText = cleanText.substring(0, 440);\n  const lastSpace = cleanText.lastIndexOf(' ');\n  if (lastSpace > 350) {\n    cleanText = cleanText.substring(0, lastSpace);\n  }\n  cleanText += '...';\n}\n\n// Добавляем вопрос и ссылку\nconst threadsText = cleanText + question + '\\n\\n📊 apart.guru';\n\n// Проверка что не превышает 500 символов\nif (threadsText.length > 500) {\n  // Если всё равно длинно - режем жёстче\n  let shortText = cleanText.substring(0, 400);\n  const sp = shortText.lastIndexOf(' ');\n  if (sp > 300) shortText = shortText.substring(0, sp);\n  return [{ json: { threadsText: shortText + '...' + question + '\\n\\n📊 apart.guru' } }];\n}\n\nreturn [{ json: { threadsText } }];"
+      },
+      "id": "threads-trim",
+      "name": "✂️ Threads с вопросом",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 480]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.threads.net/v1.0/YOUR_THREADS_USER_ID/threads",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "media_type", "value": "TEXT" },
+            { "name": "text", "value": "={{ $json.threadsText }}" },
+            { "name": "access_token", "value": "YOUR_THREADS_ACCESS_TOKEN" }
+          ]
+        },
+        "options": { "timeout": 10000 }
+      },
+      "id": "threads-create",
+      "name": "🧵 Threads контейнер",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2020, 480]
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "id": "threads-wait",
+      "name": "⏳ 5 сек",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2260, 480]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.threads.net/v1.0/YOUR_THREADS_USER_ID/threads_publish",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "creation_id", "value": "={{ $json.id }}" },
+            { "name": "access_token", "value": "YOUR_THREADS_ACCESS_TOKEN" }
+          ]
+        },
+        "options": { "timeout": 10000 }
+      },
+      "id": "threads-publish",
+      "name": "🧵 Threads публикация",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2500, 480]
+    }
+  ],
+  "connections": {
+    "⏰ Расписание": {
+      "main": [[{ "node": "🎲 Рубрика", "type": "main", "index": 0 }]]
+    },
+    "▶️ Тест": {
+      "main": [[{ "node": "🎲 Рубрика", "type": "main", "index": 0 }]]
+    },
+    "🎲 Рубрика": {
+      "main": [[{ "node": "🤖 Claude (текст)", "type": "main", "index": 0 }]]
+    },
+    "🤖 Claude (текст)": {
+      "main": [[{ "node": "📝 Сохранить текст", "type": "main", "index": 0 }]]
+    },
+    "📝 Сохранить текст": {
+      "main": [[{ "node": "🤖 Claude (промпт картинки)", "type": "main", "index": 0 }]]
+    },
+    "🤖 Claude (промпт картинки)": {
+      "main": [[{ "node": "📝 Текст + промпт", "type": "main", "index": 0 }]]
+    },
+    "📝 Текст + промпт": {
+      "main": [[{ "node": "🎨 DALL-E", "type": "main", "index": 0 }]]
+    },
+    "🎨 DALL-E": {
+      "main": [[{ "node": "📦 Финал", "type": "main", "index": 0 }]]
+    },
+    "📦 Финал": {
+      "main": [[
+        { "node": "📨 Telegram", "type": "main", "index": 0 },
+        { "node": "💬 ВКонтакте (текст)", "type": "main", "index": 0 },
+        { "node": "📸 IG контейнер", "type": "main", "index": 0 },
+        { "node": "✂️ Threads с вопросом", "type": "main", "index": 0 }
+      ]]
+    },
+    "📸 IG контейнер": {
+      "main": [[{ "node": "⏳ 30 сек", "type": "main", "index": 0 }]]
+    },
+    "⏳ 30 сек": {
+      "main": [[{ "node": "📸 IG публикация", "type": "main", "index": 0 }]]
+    },
+    "✂️ Threads с вопросом": {
+      "main": [[{ "node": "🧵 Threads контейнер", "type": "main", "index": 0 }]]
+    },
+    "🧵 Threads контейнер": {
+      "main": [[{ "node": "⏳ 5 сек", "type": "main", "index": 0 }]]
+    },
+    "⏳ 5 сек": {
+      "main": [[{ "node": "🧵 Threads публикация", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Moscow"
+  }
+}

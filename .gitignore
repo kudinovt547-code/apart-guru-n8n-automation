@@ -1,0 +1,10 @@
+# Credentials and secrets
+config-filled.md
+.env
+*.key
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
