@@ -1,10 +1,6 @@
-# Credentials and secrets
-config-filled.md
-.env
-*.key
+# Файлы с API ключами (не коммитить!)
+*FILLED*.json
+*READY.json
 
-# macOS
-.DS_Store
-
-# Logs
-*.log
+# Исключение: можно добавить вручную если нужно
+# Для добавления используй: git add -f filename.json
