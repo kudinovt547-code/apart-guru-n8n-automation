@@ -127,7 +127,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: \"claude-haiku-4-5-20251001\", max_tokens: 300, messages: [{ role: \"user\", content: \"Generate a DALL-E 3 prompt in English for an image to accompany this social media post about real estate investment. Requirements: professional real estate photography or stylish infographic style, about apart-hotels and investment in Russia, NO text/letters/numbers/words on the image, 4k quality, premium look. Reply ONLY with the prompt, nothing else.\\n\\nPost text:\\n\" + $json.postText }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: \"claude-haiku-4-5-20251001\", max_tokens: 300, messages: [{ role: \"user\", content: \"Generate a DALL-E 3 prompt in English for a realistic photo to accompany this social media post about real estate investment in Russia.\\n\\nIMPORTANT REQUIREMENTS:\\n- REALISTIC photography style (not overly bright or glossy, natural lighting)\\n- Background: MUST be a recognizable Russian city (Moscow, Saint Petersburg, Yekaterinburg, Sochi, Vyborg, Novosibirsk, Kazan, or other Russian cities)\\n- Apart-hotel interior: SIMPLE modern design, NOT luxurious, affordable investment property look\\n- Style: realistic, modest, practical Russian apartment-hotel\\n- NO text, letters, numbers, or words on the image\\n- Natural colors, not oversaturated\\n- 4k quality but realistic, not overly polished\\n\\nReply ONLY with the DALL-E prompt in English, nothing else.\\n\\nPost text:\\n\" + $json.postText }] }) }}",
         "options": {
           "timeout": 15000
         }
