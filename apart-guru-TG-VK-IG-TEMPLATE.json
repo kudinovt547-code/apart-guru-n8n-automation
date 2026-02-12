@@ -68,7 +68,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.prompt) }}\n    }\n  ]\n}",
+        "jsonBody": "={{ JSON.stringify({ model: \"claude-sonnet-4-20250514\", max_tokens: 1500, messages: [{ role: \"user\", content: $json.prompt }] }) }}",
         "options": {
           "timeout": 30000
         }
@@ -127,7 +127,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-haiku-4-5-20251001\",\n  \"max_tokens\": 300,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generate a DALL-E 3 prompt in English for an image to accompany this social media post about real estate investment. Requirements: professional real estate photography or stylish infographic style, about apart-hotels and investment in Russia, NO text/letters/numbers/words on the image, 4k quality, premium look. Reply ONLY with the prompt, nothing else.\\n\\nPost text:\\n\" + {{ JSON.stringify($json.postText) }}\n    }\n  ]\n}",
+        "jsonBody": "={{ JSON.stringify({ model: \"claude-haiku-4-5-20251001\", max_tokens: 300, messages: [{ role: \"user\", content: \"Generate a DALL-E 3 prompt in English for an image to accompany this social media post about real estate investment. Requirements: professional real estate photography or stylish infographic style, about apart-hotels and investment in Russia, NO text/letters/numbers/words on the image, 4k quality, premium look. Reply ONLY with the prompt, nothing else.\\n\\nPost text:\\n\" + $json.postText }] }) }}",
         "options": {
           "timeout": 15000
         }
@@ -188,7 +188,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"dall-e-3\",\n  \"prompt\": {{ JSON.stringify($json.imagePrompt) }},\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"quality\": \"standard\"\n}",
+        "jsonBody": "={{ JSON.stringify({ model: \"dall-e-3\", prompt: $json.imagePrompt, n: 1, size: \"1024x1024\", quality: \"standard\" }) }}",
         "options": {
           "timeout": 60000
         }
